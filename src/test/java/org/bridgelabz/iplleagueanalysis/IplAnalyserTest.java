@@ -24,4 +24,12 @@ public class IplAnalyserTest {
         IplBatsman[] mostAverageRuns = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
         Assert.assertEquals("MS Dhoni", mostAverageRuns[mostAverageRuns.length-1].player);
     }
-}
+	@Test
+	 public void givenIPL2019Data_WhenSortedForHighestBattingStrikeRate_ShouldReturnResult() throws IplAnalyserException {
+	        IplAnalyser iplAnalyser = new IplAnalyser();
+	        iplAnalyser.loadCricketIPL2019BatsmanData( BATTING_CSV_FILE);
+	        String iplPlayersRecords = iplAnalyser.getSortedIPLBattingRecords(SortingField.Field.STRIKE_RATE);
+	        IplBatsman[] highestStrikeRate = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
+	        Assert.assertEquals("Ishant Sharma",highestStrikeRate[highestStrikeRate.length-1].player);
+	}
+}	
