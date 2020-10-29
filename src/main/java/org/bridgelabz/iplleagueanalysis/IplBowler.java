@@ -34,7 +34,7 @@ public class IplBowler
 	    public double average;
 
 	    @CsvBindByName(column = "Econ")
-	    public int economy;
+	    public double economy;
 
 	    @CsvBindByName(column = "SR")
 	    public double strikeRate;
@@ -52,4 +52,5 @@ public class IplBowler
 					+ bestBallingInning + ", average=" + average + ", economy=" + economy + ", strikeRate=" + strikeRate
 					+ ", fourWkt=" + fourWkt + ", fiveWicket=" + fiveWicket + "]";
 		}
+
 }

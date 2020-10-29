@@ -2,7 +2,7 @@ package org.bridgelabz.iplleagueanalysis;
 
 import java.util.Comparator;
 
-public class SortingFieldComparator implements Comparator<IplBatsman>{
+public class SortingBatsmanFieldComparator implements Comparator<IplBatsman>{
 
 	@Override
 	public int compare(IplBatsman batsman1,IplBatsman batsman2) {

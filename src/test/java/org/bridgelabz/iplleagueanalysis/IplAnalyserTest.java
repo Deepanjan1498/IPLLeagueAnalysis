@@ -65,6 +65,14 @@ public class IplAnalyserTest {
 	        IplBatsman[] maximumRunsAndBestAverage = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
 	        Assert.assertEquals("MS Dhoni",maximumRunsAndBestAverage[maximumRunsAndBestAverage.length-1].player);
 	}
+	@Test
+    public void givenIPL2019Data_WhenSortedForHighestBowlingAverage_ShouldReturnResult() throws IplAnalyserException {
+        IplAnalyser iplAnalyser = new IplAnalyser();
+        iplAnalyser.loadCricketIPL2019BowlerData( BOWLING_CSV_FILE);
+        String iplPlayersRecords = iplAnalyser.getSortedIPLBowlingRecords(SortingField.Field.BOWLING_AVERAGE);
+        IplBowler[] highestAverageBowler = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
+        Assert.assertEquals("Krishnappa Gowtham", highestAverageBowler[highestAverageBowler.length-1].player);
+    }
 }
 
 
