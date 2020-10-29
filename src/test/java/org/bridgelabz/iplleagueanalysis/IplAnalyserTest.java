@@ -46,10 +46,17 @@ public class IplAnalyserTest {
 	        IplAnalyser iplAnalyser = new IplAnalyser();
 	        iplAnalyser.loadCricketIPL2019BatsmanData( BATTING_CSV_FILE);
 	        String iplPlayersRecords = iplAnalyser.getSortedIPLBattingRecords(SortingField.Field.STRIKE_RATE_AND_FOUR_AND_SIX);
-	        IplBatsman[] highestFourAndSix = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
-	        Assert.assertEquals("Andre Russell",highestFourAndSix[highestFourAndSix.length-1].player);
+	        IplBatsman[] highestStrikeRateAndFourAndSix = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
+	        Assert.assertEquals("Andre Russell",highestStrikeRateAndFourAndSix[highestStrikeRateAndFourAndSix.length-1].player);
 	}
-
+	@Test
+	 public void givenIPL2019Data_WhenSortingForHighestAverageAndStrikeRates_ShouldReturnResult() throws IplAnalyserException {
+	        IplAnalyser iplAnalyser = new IplAnalyser();
+	        iplAnalyser.loadCricketIPL2019BatsmanData( BATTING_CSV_FILE);
+	        String iplPlayersRecords = iplAnalyser.getSortedIPLBattingRecords(SortingField.Field.STRIKE_RATE_AND_AVERAGE);
+	        IplBatsman[] highestStrikeRateAndAverage = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
+	        Assert.assertEquals("MS Dhoni",highestStrikeRateAndAverage[highestStrikeRateAndAverage.length-1].player);
+	}
 }
 
 
