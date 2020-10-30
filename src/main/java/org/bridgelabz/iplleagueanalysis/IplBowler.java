@@ -40,7 +40,7 @@ public class IplBowler
 	    public double strikeRate;
 
 	    @CsvBindByName(column = "4w")
-	    public int fourWkt;
+	    public int fourWicket;
 
 	    @CsvBindByName(column = "5w")
 	    public int fiveWicket;
@@ -50,7 +50,7 @@ public class IplBowler
 			return "IplBowler [position=" + position + ", player=" + player + ", matches=" + matches + ", inning="
 					+ inning + ", over=" + over + ", runs=" + runs + ", wickets=" + wickets + ", bestBallingInning="
 					+ bestBallingInning + ", average=" + average + ", economy=" + economy + ", strikeRate=" + strikeRate
-					+ ", fourWkt=" + fourWkt + ", fiveWicket=" + fiveWicket + "]";
+					+ ", fourWicket=" + fourWicket + ", fiveWicket=" + fiveWicket + "]";
 		}
 
 }
