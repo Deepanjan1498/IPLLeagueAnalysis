@@ -16,7 +16,7 @@ public class SortingField {
 		STRIKE_RATE_AND_AVERAGE,MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,
 		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W,
 		BEST_STRIKE_RATE_WITH_AVERAGE,MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE,
-		BEST_BATTING_AND_BOWLING_AVERAGE
+		BEST_BATTING_AND_BOWLING_AVERAGE,BEST_ALL_ROUNDER
 	}
 	public static Comparator getComparatorField(Field field) 
 	{
@@ -53,8 +53,12 @@ public class SortingField {
 	
 		Comparator<IplAllRounder> battingAverageComparator=Comparator.comparing(census->census.battingAverage);
 	    Comparator<IplAllRounder> bowlingAverageComparator=Comparator.comparing(census->census.bowlingAverage);;
+	    Comparator<IplAllRounder> battingRunsComparator=Comparator.comparing(census->census.battingRuns);
+	    Comparator<IplAllRounder> wicketsComparator=Comparator.comparing(census->census.wickets);
 	    Comparator<IplAllRounder> bothAverageComparator=battingAverageComparator.reversed().thenComparing(bowlingAverageComparator);
+	    Comparator<IplAllRounder> bestAllRounderComparator=battingRunsComparator.reversed().thenComparing(wicketsComparator.reversed());
 	    sortAllRounderFieldComparator.put(Field.BEST_BATTING_AND_BOWLING_AVERAGE,bothAverageComparator);
+	    sortAllRounderFieldComparator.put(Field.BEST_ALL_ROUNDER,bestAllRounderComparator);
 	    Comparator<IplAllRounder> allRounderFieldComparator = sortAllRounderFieldComparator.get(field);
         return allRounderFieldComparator; 
 	}

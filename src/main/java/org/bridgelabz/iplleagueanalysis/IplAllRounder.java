@@ -16,7 +16,7 @@ public class IplAllRounder {
 	}
 	@Override
 	public String toString() {
-		return "IplCSVALLRounder [name=" + name + ", battingRuns=" + battingRuns + ", battingAverage=" + battingAverage
+		return "IplAllRounder [name=" + name + ", battingRuns=" + battingRuns + ", battingAverage=" + battingAverage
 				+ ", bowlingAverage=" + bowlingAverage + ", wickets=" + wickets + "]";
 	}
 	public String getName() {
