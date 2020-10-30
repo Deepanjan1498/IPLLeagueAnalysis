@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 
@@ -95,6 +96,15 @@ public class IplAnalyser {
         iplAllRounderList.sort(iplFieldComparator);
         iplAllRounderList.forEach((System.out::println));
         return new Gson().toJson(iplAllRounderList);
+	}
+	public String getSortedZeroFiftyAndHundredsAndBestAverageRecords(SortingField.Field field) throws IplAnalyserException 
+	 {	
+		List<IplBatsman> zero100and50AndBestAverageList= iplBatsmanList.stream()
+				.filter(batsman -> (batsman.fiftys==0)&& (batsman.hundreds==0))
+				.collect(Collectors.toList());
+			 Comparator<IplBatsman> iplFieldComparator = SortingField.getComparatorField(field);
+	         zero100and50AndBestAverageList.sort(iplFieldComparator);
+	         return new Gson().toJson(zero100and50AndBestAverageList);
 	}
 	
 }

@@ -139,8 +139,15 @@ public class IplAnalyserTest {
         iplAnalyser.loadCricketIPL2019BatsmanData( BATTING_CSV_FILE);
         String iplPlayersRecords = iplAnalyser.getSortedIPLBattingRecords(SortingField.Field.MAXIMUM_HUNDREDS_AND_BEST_AVERAGE);
         IplBatsman[] maximumHundredsAndBestAverage = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
-        Assert.assertEquals("David Warner ", maximumHundredsAndBestAverage[0].player);
-        
+        Assert.assertEquals("David Warner ", maximumHundredsAndBestAverage[0].player);    
+	}
+	@Test
+    public void givenIPL2019Data_WhenSortedZeroHundredsAndFiftysAndBestAverage_ShouldReturnResult() throws IplAnalyserException {
+        IplAnalyser iplAnalyser = new IplAnalyser();
+        iplAnalyser.loadCricketIPL2019BatsmanData( BATTING_CSV_FILE);
+        String iplPlayersRecords = iplAnalyser.getSortedZeroFiftyAndHundredsAndBestAverageRecords(SortingField.Field.ZERO_HUNDRED_AND_FIFTY_WITH_BEST_AVERAGE);
+        IplBatsman[] zeroHundredsAndFiftysAndBestAverage = new Gson().fromJson(iplPlayersRecords, IplBatsman[].class);
+        Assert.assertEquals("Marcus Stoinis", zeroHundredsAndFiftysAndBestAverage[0].player);    
 	}
 	
 }
