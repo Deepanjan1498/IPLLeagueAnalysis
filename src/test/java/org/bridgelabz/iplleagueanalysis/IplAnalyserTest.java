@@ -81,6 +81,14 @@ public class IplAnalyserTest {
         IplBowler[] highestBowlingStrikeRate = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
         Assert.assertEquals("Krishnappa Gowtham", highestBowlingStrikeRate[highestBowlingStrikeRate.length-1].player);
     }
+	@Test
+    public void givenIPL2019Data_WhenSortedBestBowlingEconomy_ShouldReturnResult() throws IplAnalyserException {
+        IplAnalyser iplAnalyser = new IplAnalyser();
+        iplAnalyser.loadCricketIPL2019BowlerData( BOWLING_CSV_FILE);
+        String iplPlayersRecords = iplAnalyser.getSortedIPLBowlingRecords(SortingField.Field.BOWLING_ECONOMY);
+        IplBowler[] bestBowlingEconomy = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
+        Assert.assertEquals("Shivam Dube", bestBowlingEconomy[0].player);
+    }
 	
 }
 

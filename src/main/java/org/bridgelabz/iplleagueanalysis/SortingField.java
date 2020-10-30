@@ -12,7 +12,7 @@ public class SortingField {
 	
 	public enum Field{
 		MAXIMUM_RUNS,AVERAGE,STRIKE_RATE, FOUR_AND_SIX,STRIKE_RATE_AND_FOUR_AND_SIX,STRIKE_RATE_AND_AVERAGE,
-		MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,BOWLING_STRIKE_RATE
+		MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,BOWLING_STRIKE_RATE,BOWLING_ECONOMY
 	}
 	public static Comparator getComparatorField(Field field) 
 	{
@@ -32,6 +32,8 @@ public class SortingField {
 		// TODO Auto-generated method stub
 		sortBowlingFieldComparator.put(Field.BOWLING_AVERAGE,new SortingBowlerAverageComparator());
 		sortBowlingFieldComparator.put(Field.BOWLING_STRIKE_RATE,new SortingBowlerStrikeRateComparator());
+		Comparator<IplBowler> economyComparator=Comparator.comparing(census->census.economy);
+	    sortBowlingFieldComparator.put(Field.BOWLING_ECONOMY,economyComparator);
 		Comparator<IplBowler> bowlerFieldComparator = sortBowlingFieldComparator.get(field);
 		return bowlerFieldComparator;
 	}
