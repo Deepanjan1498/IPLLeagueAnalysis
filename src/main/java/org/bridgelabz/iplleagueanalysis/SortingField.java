@@ -13,7 +13,8 @@ public class SortingField {
 	public enum Field{
 		MAXIMUM_RUNS,AVERAGE,STRIKE_RATE, FOUR_AND_SIX,STRIKE_RATE_AND_FOUR_AND_SIX,
 		STRIKE_RATE_AND_AVERAGE,MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,
-		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W
+		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W,
+		BEST_STRIKE_RATE_WITH_AVERAGE
 	}
 	public static Comparator getComparatorField(Field field) 
 	{
@@ -38,6 +39,8 @@ public class SortingField {
 	    Comparator<IplBowler> fourAndFiveWicket=Comparator.comparing(census->(census.fourWicket*4+census.fiveWicket*5));
 	    Comparator<IplBowler> bestStrikeRateWith4wAnd5w=fourAndFiveWicket.reversed().thenComparing(new SortingBowlerStrikeRateComparator());
 	    sortBowlingFieldComparator.put(Field.BEST_STRIKE_RATE_WITH_5W_AND_4W,bestStrikeRateWith4wAnd5w);
+	    Comparator<IplBowler> bestAverageWithStrikeRate=new SortingBowlerAverageComparator().thenComparing(new SortingBowlerStrikeRateComparator());
+	    sortBowlingFieldComparator.put(Field.BEST_STRIKE_RATE_WITH_AVERAGE,bestAverageWithStrikeRate);
 	    Comparator<IplBowler> bowlerFieldComparator = sortBowlingFieldComparator.get(field);
 		return bowlerFieldComparator;
 	}

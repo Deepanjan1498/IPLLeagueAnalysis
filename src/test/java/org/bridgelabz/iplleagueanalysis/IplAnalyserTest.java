@@ -97,6 +97,14 @@ public class IplAnalyserTest {
         IplBowler[] bestBowlingStrikeRateWith4wAnd5w = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
         Assert.assertEquals("Kagiso Rabada", bestBowlingStrikeRateWith4wAnd5w[0].player);
     }
+	@Test
+    public void givenIPL2019Data_WhenSortedBestAverageWithStrikeRate_ShouldReturnResult() throws IplAnalyserException {
+        IplAnalyser iplAnalyser = new IplAnalyser();
+        iplAnalyser.loadCricketIPL2019BowlerData( BOWLING_CSV_FILE);
+        String iplPlayersRecords = iplAnalyser.getSortedIPLBowlingRecords(SortingField.Field.BEST_STRIKE_RATE_WITH_AVERAGE);
+        IplBowler[] bestBowlingStrikeRateWithAverage = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
+        Assert.assertEquals("Anukul Roy", bestBowlingStrikeRateWithAverage[0].player);
+    }
 	
 }
 
