@@ -105,6 +105,14 @@ public class IplAnalyserTest {
         IplBowler[] bestBowlingStrikeRateWithAverage = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
         Assert.assertEquals("Anukul Roy", bestBowlingStrikeRateWithAverage[0].player);
     }
+	@Test
+    public void givenIPL2019Data_WhenSortedWithMaximumWicketsAndAverage_ShouldReturnResult() throws IplAnalyserException {
+        IplAnalyser iplAnalyser = new IplAnalyser();
+        iplAnalyser.loadCricketIPL2019BowlerData( BOWLING_CSV_FILE);
+        String iplPlayersRecords = iplAnalyser.getSortedIPLBowlingRecords(SortingField.Field.MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE);
+        IplBowler[] maximumWicketsWithBowlingAverage = new Gson().fromJson(iplPlayersRecords, IplBowler[].class);
+        Assert.assertEquals("Imran Tahir", maximumWicketsWithBowlingAverage[0].player);
+    }
 	
 }
 

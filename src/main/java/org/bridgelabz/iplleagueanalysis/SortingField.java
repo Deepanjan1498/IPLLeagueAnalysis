@@ -14,7 +14,7 @@ public class SortingField {
 		MAXIMUM_RUNS,AVERAGE,STRIKE_RATE, FOUR_AND_SIX,STRIKE_RATE_AND_FOUR_AND_SIX,
 		STRIKE_RATE_AND_AVERAGE,MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,
 		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W,
-		BEST_STRIKE_RATE_WITH_AVERAGE
+		BEST_STRIKE_RATE_WITH_AVERAGE,MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE
 	}
 	public static Comparator getComparatorField(Field field) 
 	{
@@ -34,6 +34,7 @@ public class SortingField {
 		// TODO Auto-generated method stub
 		sortBowlingFieldComparator.put(Field.BOWLING_AVERAGE,new SortingBowlerAverageComparator());
 		sortBowlingFieldComparator.put(Field.BOWLING_STRIKE_RATE,new SortingBowlerStrikeRateComparator());
+		Comparator<IplBowler> wicketComparator=Comparator.comparing(census->census.wickets);
 		Comparator<IplBowler> economyComparator=Comparator.comparing(census->census.economy);
 	    sortBowlingFieldComparator.put(Field.BOWLING_ECONOMY,economyComparator);
 	    Comparator<IplBowler> fourAndFiveWicket=Comparator.comparing(census->(census.fourWicket*4+census.fiveWicket*5));
@@ -41,6 +42,8 @@ public class SortingField {
 	    sortBowlingFieldComparator.put(Field.BEST_STRIKE_RATE_WITH_5W_AND_4W,bestStrikeRateWith4wAnd5w);
 	    Comparator<IplBowler> bestAverageWithStrikeRate=new SortingBowlerAverageComparator().thenComparing(new SortingBowlerStrikeRateComparator());
 	    sortBowlingFieldComparator.put(Field.BEST_STRIKE_RATE_WITH_AVERAGE,bestAverageWithStrikeRate);
+	    Comparator<IplBowler> maximumWicketsWithBestAverage=wicketComparator.reversed().thenComparing(new SortingBowlerAverageComparator());
+	    sortBowlingFieldComparator.put(Field.MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE,maximumWicketsWithBestAverage);
 	    Comparator<IplBowler> bowlerFieldComparator = sortBowlingFieldComparator.get(field);
 		return bowlerFieldComparator;
 	}
