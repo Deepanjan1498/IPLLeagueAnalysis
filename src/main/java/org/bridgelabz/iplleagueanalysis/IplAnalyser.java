@@ -15,16 +15,16 @@ import java.util.List;
 import com.google.gson.Gson;
 
 
-
 public class IplAnalyser {
-	List<IplBatsman> iplCsvList = new ArrayList<>();
+	List<IplBatsman> iplBatsmanList= new ArrayList<>();
 	List<IplBowler> iplCsvBowlerList = new ArrayList<>();
+	List<IplAllRounder>iplAllRounderList = new ArrayList<>();
 	public int loadCricketIPL2019BatsmanData(String csvFilePath) throws IplAnalyserException 
 	{
 		 try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath));) {
 	            ICSVBuilder csvbuilder = CSVBuilderFactory.createCSVBuilder();
-	            iplCsvList= csvbuilder.getCSVFileList(reader, IplBatsman.class);
-	            return iplCsvList.size();
+	            iplBatsmanList= csvbuilder.getCSVFileList(reader, IplBatsman.class);
+	            return iplBatsmanList.size();
 
 	        }
 		 	catch (IOException e) {
@@ -40,13 +40,13 @@ public class IplAnalyser {
     }
 	public String getSortedIPLBattingRecords(SortingField.Field field) throws IplAnalyserException 
 	 {
-	        if (iplCsvList == null || iplCsvList.size() == 0) {
+	        if (iplBatsmanList== null || iplBatsmanList.size() == 0) {
 	            throw new IplAnalyserException("No Census Data", IplAnalyserException.ExceptionType.DATA_NOT_FOUND);
 	        }
 	        Comparator<IplBatsman> iplFieldComparator = SortingField.getComparatorField(field);
-	        iplCsvList.sort(iplFieldComparator);
-	        iplCsvList.forEach(System.out::println);
-	        return new Gson().toJson(iplCsvList);
+	        iplBatsmanList.sort(iplFieldComparator);
+	        iplBatsmanList.forEach(System.out::println);
+	        return new Gson().toJson(iplBatsmanList);
 	    }
 	public int loadCricketIPL2019BowlerData(String csvBowlerFilePath) throws IplAnalyserException 
 	{
@@ -77,5 +77,24 @@ public class IplAnalyser {
 	        iplCsvBowlerList.forEach(System.out::println);
 	        return new Gson().toJson(iplCsvBowlerList);
 	    }
+	public String getSortedIPL2019AllRounderRecords(SortingField.Field field) throws IplAnalyserException
+	{
+		for(int bat = 0; bat < iplBatsmanList.size(); bat++) 
+		{
+			for(int bowl = 0; bowl < iplCsvBowlerList.size(); bowl++)
+			{
+				if(iplBatsmanList.get(bat).player.matches((iplCsvBowlerList).get(bowl).player)) 
+				{
+					IplAllRounder allRounderCricketersData = new IplAllRounder(iplBatsmanList.get(bat).player, iplBatsmanList.get(bat).runs,iplBatsmanList.get(bat).average, iplCsvBowlerList.get(bowl).average,iplCsvBowlerList.get(bowl).wickets);
+					System.out.println(allRounderCricketersData);
+					iplAllRounderList.add(allRounderCricketersData);
+				}
+			}
+		}
+		Comparator<IplAllRounder> iplFieldComparator = SortingField.getAllRounderComparatorField(field);
+        iplAllRounderList.sort(iplFieldComparator);
+        iplAllRounderList.forEach((System.out::println));
+        return new Gson().toJson(iplAllRounderList);
+	}
 	
 }

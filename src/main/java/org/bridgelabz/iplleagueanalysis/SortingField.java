@@ -9,12 +9,14 @@ public class SortingField {
 	
 	static Map<Field, Comparator> sortFieldComparator = new HashMap<>();
 	static Map<Field, Comparator> sortBowlingFieldComparator = new HashMap<>();
+	static Map<Field, Comparator> sortAllRounderFieldComparator = new HashMap<>();
 	
 	public enum Field{
 		MAXIMUM_RUNS,AVERAGE,STRIKE_RATE, FOUR_AND_SIX,STRIKE_RATE_AND_FOUR_AND_SIX,
 		STRIKE_RATE_AND_AVERAGE,MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,
 		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W,
-		BEST_STRIKE_RATE_WITH_AVERAGE,MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE
+		BEST_STRIKE_RATE_WITH_AVERAGE,MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE,
+		BEST_BATTING_AND_BOWLING_AVERAGE
 	}
 	public static Comparator getComparatorField(Field field) 
 	{
@@ -47,4 +49,14 @@ public class SortingField {
 	    Comparator<IplBowler> bowlerFieldComparator = sortBowlingFieldComparator.get(field);
 		return bowlerFieldComparator;
 	}
+	public static Comparator getAllRounderComparatorField(Field field) {
+	
+		Comparator<IplAllRounder> battingAverageComparator=Comparator.comparing(census->census.battingAverage);
+	    Comparator<IplAllRounder> bowlingAverageComparator=Comparator.comparing(census->census.bowlingAverage);;
+	    Comparator<IplAllRounder> bothAverageComparator=battingAverageComparator.reversed().thenComparing(bowlingAverageComparator);
+	    sortAllRounderFieldComparator.put(Field.BEST_BATTING_AND_BOWLING_AVERAGE,bothAverageComparator);
+	    Comparator<IplAllRounder> allRounderFieldComparator = sortAllRounderFieldComparator.get(field);
+        return allRounderFieldComparator; 
+	}
+	
 }
