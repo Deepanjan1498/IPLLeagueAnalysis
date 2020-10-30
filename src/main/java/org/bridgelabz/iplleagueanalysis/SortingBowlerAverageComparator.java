@@ -2,7 +2,7 @@ package org.bridgelabz.iplleagueanalysis;
 
 import java.util.Comparator;
 
-public class SortingBowlerFieldComparator implements Comparator<IplBowler> {
+public class SortingBowlerAverageComparator implements Comparator<IplBowler> {
 	@Override
 	public int compare(IplBowler bowler1,IplBowler bowler2) {
 		 if (bowler1.average==0.0) {
