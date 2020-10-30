@@ -16,19 +16,21 @@ public class SortingField {
 		STRIKE_RATE_AND_AVERAGE,MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,
 		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W,
 		BEST_STRIKE_RATE_WITH_AVERAGE,MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE,
-		BEST_BATTING_AND_BOWLING_AVERAGE,BEST_ALL_ROUNDER
+		BEST_BATTING_AND_BOWLING_AVERAGE,BEST_ALL_ROUNDER,MAXIMUM_HUNDREDS_AND_BEST_AVERAGE
 	}
 	public static Comparator getComparatorField(Field field) 
 	{
-		Comparator<IplBatsman> iplMaximumRunsComparator = Comparator.comparing(census->census.runs);
+		  Comparator<IplBatsman> iplMaximumRunsComparator = Comparator.comparing(census->census.runs);
 		  Comparator<IplBatsman> iplAverageComparator = Comparator.comparing(census->census.average);
 	      sortFieldComparator.put(Field.AVERAGE, iplAverageComparator);
+	      Comparator<IplBatsman> iplHundredComparator = Comparator.comparing(census -> census.hundreds);
 	      Comparator<IplBatsman> iplStrikeRateComparator = Comparator.comparing(census->census.strikeRate);
 	      sortFieldComparator.put(Field.STRIKE_RATE, iplStrikeRateComparator);
           sortFieldComparator.put(Field.FOUR_AND_SIX,new SortingBatsmanFieldComparator());	     
 	      sortFieldComparator.put(Field.STRIKE_RATE_AND_FOUR_AND_SIX, new SortingBatsmanFieldComparator().thenComparing(iplStrikeRateComparator));
           sortFieldComparator.put(Field.STRIKE_RATE_AND_AVERAGE, iplAverageComparator.thenComparing(iplStrikeRateComparator));
           sortFieldComparator.put(Field.MAXIMUM_RUNS_WITH_BEST_AVERAGE,(iplMaximumRunsComparator).thenComparing(iplAverageComparator));
+          sortFieldComparator.put(Field.MAXIMUM_HUNDREDS_AND_BEST_AVERAGE,(iplHundredComparator.reversed()).thenComparing(iplAverageComparator.reversed()));
           Comparator<IplBatsman> FieldComparator = sortFieldComparator.get(field);
 	        return FieldComparator;
 	}
