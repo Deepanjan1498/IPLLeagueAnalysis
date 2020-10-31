@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
 
+/**
+ * @author Mentalist
+ *
+ */
 public class IplAnalyser {
 	List<IplBatsman> iplBatsmanList= new ArrayList<>();
 	List<IplBowler> iplCsvBowlerList = new ArrayList<>();

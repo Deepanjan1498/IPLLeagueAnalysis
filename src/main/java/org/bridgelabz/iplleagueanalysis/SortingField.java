@@ -12,7 +12,7 @@ public class SortingField {
 	static Map<Field, Comparator> sortAllRounderFieldComparator = new HashMap<>();
 	
 	public enum Field{
-		MAXIMUM_RUNS,AVERAGE,STRIKE_RATE, FOUR_AND_SIX,STRIKE_RATE_AND_FOUR_AND_SIX,
+		MAXIMUM_RUNS,AVERAGE,STRIKE_RATE,FOUR_AND_SIX,STRIKE_RATE_AND_FOUR_AND_SIX,
 		STRIKE_RATE_AND_AVERAGE,MAXIMUM_RUNS_WITH_BEST_AVERAGE,BOWLING_AVERAGE,
 		BOWLING_STRIKE_RATE,BOWLING_ECONOMY,BEST_STRIKE_RATE_WITH_5W_AND_4W,
 		BEST_STRIKE_RATE_WITH_AVERAGE,MAXIMUM_WICKETS_WITH_BEST_BOWLING_AVERAGE,
@@ -25,10 +25,11 @@ public class SortingField {
 		  Comparator<IplBatsman> iplAverageComparator = Comparator.comparing(census->census.average);
 	      sortFieldComparator.put(Field.AVERAGE, iplAverageComparator);
 	      Comparator<IplBatsman> iplHundredComparator = Comparator.comparing(census -> census.hundreds);
+	      Comparator<IplBatsman> iplFoursandSixesComparator = Comparator.comparing(census->census.fours*4+census.sixes*6);
 	      Comparator<IplBatsman> iplStrikeRateComparator = Comparator.comparing(census->census.strikeRate);
 	      sortFieldComparator.put(Field.STRIKE_RATE, iplStrikeRateComparator);
-          sortFieldComparator.put(Field.FOUR_AND_SIX,new SortingBatsmanFieldComparator());	     
-	      sortFieldComparator.put(Field.STRIKE_RATE_AND_FOUR_AND_SIX, new SortingBatsmanFieldComparator().thenComparing(iplStrikeRateComparator));
+	      sortFieldComparator.put(Field.FOUR_AND_SIX, iplFoursandSixesComparator);
+	      sortFieldComparator.put(Field.STRIKE_RATE_AND_FOUR_AND_SIX, iplFoursandSixesComparator.thenComparing(iplStrikeRateComparator));
           sortFieldComparator.put(Field.STRIKE_RATE_AND_AVERAGE, iplAverageComparator.thenComparing(iplStrikeRateComparator));
           sortFieldComparator.put(Field.MAXIMUM_RUNS_WITH_BEST_AVERAGE,(iplMaximumRunsComparator).thenComparing(iplAverageComparator));
           sortFieldComparator.put(Field.MAXIMUM_HUNDREDS_AND_BEST_AVERAGE,(iplHundredComparator.reversed()).thenComparing(iplAverageComparator.reversed()));
